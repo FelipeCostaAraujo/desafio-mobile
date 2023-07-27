@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:words_app/features/words/presentation/bloc/words_cubit.dart';
+
+import '../../../core/resources/i18n/resources.dart';
+import '../../words/presentation/containers/words_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,43 +17,34 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
-          initialIndex: 0,
-          length: 3,
-          child: NestedScrollView(
-            scrollDirection: Axis.vertical,
-            headerSliverBuilder: (context, innerBoxIsScrolled) => [
-              const SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    SizedBox(height: 16),
-                    TabBar(
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey,
-                      labelStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      tabs: [
-                        Tab(child: Text("Words list")),
-                        Tab(child: Text("History")),
-                        Tab(
-                          child: Text("Favorites"),
-                        )
-                      ],
-                    ),
+            initialIndex: 0,
+            length: 3,
+            child: Column(
+              children: [
+                 TabBar(
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey,
+                  labelStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  tabs: [
+                    Tab(child: Text(R.strings.wordsList)),
+                    Tab(child: Text(R.strings.history)),
+                    Tab(child: Text(R.strings.favorites))
                   ],
                 ),
-              ),
-            ],
-            body: TabBarView(
-              children: [
-                fakerPage("Faker 1"),
-                fakerPage("Faker 2"),
-                fakerPage("Faker 3"),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      WordsCubitProvider(child: WordsContainer()),
+                      fakerPage("Faker 2"),
+                      fakerPage("Faker 3"),
+                    ],
+                  ),
+                ),
               ],
-            ),
-          ),
-        ),
+            )),
       ),
     );
   }

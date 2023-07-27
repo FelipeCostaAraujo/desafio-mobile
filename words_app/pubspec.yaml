@@ -45,7 +45,6 @@ dependencies:
   device_preview: ^1.1.0
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
-  firebase_remote_config: ^4.2.1
 
 dev_dependencies:
   flutter_test:
