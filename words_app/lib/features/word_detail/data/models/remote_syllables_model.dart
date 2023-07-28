@@ -7,17 +7,19 @@ class RemoteSyllablesModel {
     this.list,
   });
 
-  static Map<String, dynamic> toJson(RemoteSyllablesModel? e) {
+  Map<String, dynamic> toJson() {
     return {
-      'count': e?.count,
-      'list': e?.list,
+      'count': count,
+      'list': list,
     };
   }
 
   factory RemoteSyllablesModel.fromJson(Map<String, dynamic> json) {
     return RemoteSyllablesModel(
       count: json['count'] ?? 0,
-      list: json['list'] != null ? (json['list'] as List).map((e) => e.toString()).toList() : null,
+      list: json['list'] != null
+          ? (json['list'] as List).map((e) => e.toString()).toList()
+          : null,
     );
   }
 }

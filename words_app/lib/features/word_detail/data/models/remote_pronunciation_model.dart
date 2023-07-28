@@ -5,10 +5,8 @@ class RemotePronunciationModel {
     this.all,
   });
 
-  static Map<String, dynamic> toJson(RemotePronunciationModel? e) {
-    return {
-      'all': e?.all,
-    };
+  Map<String, dynamic> toJson() {
+    return {'all': all};
   }
 
   factory RemotePronunciationModel.fromJson(Map<String, dynamic> json) {

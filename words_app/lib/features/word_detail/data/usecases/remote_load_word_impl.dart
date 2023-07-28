@@ -5,11 +5,11 @@ import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 
 import '../models/remote_word_model.dart';
 
-class LoadWordImpl implements LoadWord {
+class RemoteLoadWordImpl implements LoadWord {
   final HttpClient httpClient;
   final String url;
 
-  LoadWordImpl({required this.httpClient, required this.url});
+  RemoteLoadWordImpl({required this.httpClient, required this.url});
 
   @override
   Future<WordEntity> load(String word) async {
@@ -21,7 +21,8 @@ class LoadWordImpl implements LoadWord {
         case HttpError.notFound:
           throw DomainError.wordNotFound;
         case HttpError.forbidden:
-          throw DomainError.serverError;
+        case HttpError.unauthorized:
+          throw DomainError.accessDenied;
         default:
           throw DomainError.unexpected;
       }

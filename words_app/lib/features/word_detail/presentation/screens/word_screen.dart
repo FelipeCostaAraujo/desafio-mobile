@@ -95,7 +95,6 @@ class _WordScreenState extends State<WordScreen> {
                       Flexible(
                         child: Text(
                           widget.word.definition.toCapitalize(),
-                          maxLines: 3,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -109,7 +108,6 @@ class _WordScreenState extends State<WordScreen> {
                       Flexible(
                         child: Text(
                           widget.word.example.toCapitalize(),
-                          maxLines: 3,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,

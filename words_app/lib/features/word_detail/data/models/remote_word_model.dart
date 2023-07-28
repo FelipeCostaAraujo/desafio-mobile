@@ -18,13 +18,13 @@ class RemoteWordModel {
     this.frequency,
   });
 
-  static Map<String, dynamic> toJson(RemoteWordModel? e) {
+  Map<String, dynamic> toJson() {
     return {
-      'word': e?.word,
-      'results': e?.results?.map((e) => RemoteResultsModel.toJson(e)).toList(),
-      'syllables': RemoteSyllablesModel.toJson(e?.syllables),
-      'pronunciation': RemotePronunciationModel.toJson(e?.pronunciation),
-      'frequency': e?.frequency,
+      'word': word,
+      'results': results?.map((e) => e.toJson()).toList(),
+      'syllables': syllables?.toJson(),
+      'pronunciation': pronunciation?.toJson(),
+      'frequency': frequency,
     };
   }
 
