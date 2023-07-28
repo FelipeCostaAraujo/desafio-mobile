@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:words_app/core/resources/i18n/resources.dart';
+import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/features/words/domain/usecases/load_words.dart';
-
-import '../../../../core/error/failure.dart';
 
 class LoadWordsImpl implements LoadWords {
 
@@ -16,7 +14,7 @@ class LoadWordsImpl implements LoadWords {
       var wordsJson = jsonDecode(response);
       return wordsJson.keys.toList();
     }catch (e) {
-      throw ServerFailure(R.strings.msgServerFailure);
+      throw DomainError.unexpected;
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
 import '../../../../core/resources/i18n/resources.dart';
 import './widgets/widgets.dart';
 
@@ -34,7 +35,14 @@ class WordsScreen extends StatelessWidget {
                 mainAxisSpacing: 5,
               ),
               itemCount: words.length,
-              itemBuilder: (context, index) => WordCard(text: words[index],onTap: (){}),
+              itemBuilder: (context, index) => WordCard(
+                  text: words[index],
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      WordContainer.routeName,
+                      arguments: words[index],
+                    );
+                  }),
             ),
           ),
         ],

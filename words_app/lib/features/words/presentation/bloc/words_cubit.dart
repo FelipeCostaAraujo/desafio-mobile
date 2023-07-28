@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/features/words/domain/usecases/load_words.dart';
 import 'package:words_app/features/words/presentation/bloc/words_cubit_state.dart';
 
@@ -18,10 +19,10 @@ class WordsCubit extends Cubit<WordsCubitState> {
         status: WordsStateStatus.loaded,
         words: wordsList,
       ));
-    } catch (error) {
+    } on DomainError catch (error) {
       emit(state.copyWith(
         status: WordsStateStatus.error,
-        error: error.toString(),
+        error: error.description,
       ));
     }
   }

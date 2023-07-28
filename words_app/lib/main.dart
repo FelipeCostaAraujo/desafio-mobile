@@ -17,6 +17,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  T? cast<T>(x) => x is T ? x : null;
 
   @override
   Widget build(BuildContext context) {

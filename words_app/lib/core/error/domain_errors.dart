@@ -7,26 +7,29 @@ enum DomainError {
   emailInUse,
   emailInvalid,
   passwordWeak,
+  wordNotFound,
   accessDenied;
 
   String get description {
     switch (this) {
       case DomainError.emailInUse:
-        return 'Email já cadastrado';
+        return 'Email already in use';
+      case DomainError.wordNotFound:
+        return 'Word not found';
       case DomainError.emailInvalid:
-        return 'Email inválido';
+        return 'Invalid email';
       case DomainError.passwordWeak:
-        return 'Senha fraca';
+        return 'Password is too weak';
       case DomainError.userNotFound:
-        return 'Usuário não encontrado';
+        return 'User not found';
       case DomainError.invalidCredentials:
-        return 'Crendenciais inválidas';
+        return 'Invalid credentials';
       case DomainError.timeOut:
-        return 'Tempo de conexão esgotado';
+        return 'Time out';
       case DomainError.serverError:
-        return 'Falha no servidor';
+        return 'Server error';
       default:
-        return 'Erro desconhecido';
+        return 'Unexpected error';
     }
   }
 }
