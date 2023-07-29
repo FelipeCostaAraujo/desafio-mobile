@@ -21,6 +21,7 @@ class WordContainer extends BlocBuilder<WordCubit, WordCubitState> {
                 return WordScreen(
                   word: WordViewModel(
                     word: state.word!.word,
+                    isFavorite: state.word?.isFavorite ?? false,
                     definition: state.word!.definition,
                     example: state.word!.examples.isNotEmpty
                         ? state.word!.examples.first

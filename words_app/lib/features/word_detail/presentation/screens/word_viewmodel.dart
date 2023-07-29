@@ -1,18 +1,16 @@
-import 'package:equatable/equatable.dart';
-
-class WordViewModel extends Equatable {
+class WordViewModel {
   final String word;
   final String definition;
   final String example;
   final String pronunciation;
+  bool isFavorite;
 
-  const WordViewModel({
+
+  WordViewModel({
     required this.word,
     required this.definition,
     required this.example,
     required this.pronunciation,
+    this.isFavorite = false,
   });
-
-  @override
-  List<Object?> get props => [word, definition, example, pronunciation];
 }

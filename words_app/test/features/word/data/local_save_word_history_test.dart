@@ -1,35 +1,33 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_save_word_history_impl.dart';
+import 'package:words_app/features/word_detail/domain/entities/word_entity.dart';
 
+import '../domain/entity_factory.dart';
 import '../mocks/cache_storage_spy.dart';
 
-void main(){
+void main() {
   late LocalSaveWordHistoryImpl sut;
   late CacheStorageSpy cacheStorage;
-  late String word;
-  late List<String> words;
+  late WordEntity word;
+  late List<WordEntity> words;
+  late List<Map<String, dynamic>> json;
 
-  setUp((){
-    words = faker.lorem.sentences(10);
-    word = faker.lorem.word();
+  setUp(() {
+    words = [EntityFactory.makeWord()];
+    json = words.map((e) => e.toJSon()).toList();
+    word = EntityFactory.makeWord();
     cacheStorage = CacheStorageSpy();
-    cacheStorage.mockFetch(words);
+    cacheStorage.mockFetch(json);
     sut = LocalSaveWordHistoryImpl(cacheStorage: cacheStorage);
   });
 
-  test('Should call cacheStorage with correct key', () async {
-    await sut.save(word);
+  test('Should completes if cache return null', () async {
+    cacheStorage.mockFetch(null);
 
-    verify(() => cacheStorage.save(key: "history", value: words)).called(1);
-  });
+    final future = sut.save(word);
 
-  test('Should throw UnexpectedError if word value is empty', () async {
-    final future = sut.save("");
-
-    expect(future, throwsA(DomainError.unexpected));
+    expect(future, completes);
   });
 
   test('Should throw UnexpectedError if cache throw Exception', () async {

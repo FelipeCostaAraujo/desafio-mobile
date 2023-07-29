@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:words_app/features/word_detail/presentation/bloc/word_cubit.dart';
 
 import 'word_viewmodel.dart';
 import 'widgets/widgets.dart';
@@ -18,7 +20,6 @@ class _WordScreenState extends State<WordScreen> {
   FlutterTts flutterTts = FlutterTts();
   double progress = 0;
   TtsState ttsState = TtsState.stopped;
-  bool isFavorite = false;
 
   @override
   void initState() {
@@ -80,7 +81,7 @@ class _WordScreenState extends State<WordScreen> {
                 ),
                 IconButton(
                   onPressed: _setFavorite,
-                  icon: isFavorite
+                  icon: widget.word.isFavorite
                       ? const Icon(Icons.favorite)
                       : const Icon(Icons.favorite_border),
                 ),
@@ -138,8 +139,9 @@ class _WordScreenState extends State<WordScreen> {
 
   _setFavorite() {
     setState(() {
-      isFavorite = !isFavorite;
+      widget.word.isFavorite = !widget.word.isFavorite;
     });
+    context.read<WordCubit>().setFavorite(widget.word.isFavorite);
   }
 
   _speech() async {

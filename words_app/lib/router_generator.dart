@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:words_app/features/splash/splash_screen.dart';
 import 'package:words_app/features/word_detail/presentation/bloc/word_cubit.dart';
 import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
 
@@ -10,7 +11,12 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+      case HomeScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        );
       case WordContainer.routeName:
         if (args is String) {
           return MaterialPageRoute(

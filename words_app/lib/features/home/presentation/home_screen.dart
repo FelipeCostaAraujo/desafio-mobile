@@ -5,6 +5,7 @@ import '../../../core/resources/i18n/resources.dart';
 import '../../words/presentation/containers/words_container.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String routeName = '/home';
   const HomeScreen({super.key});
 
   @override

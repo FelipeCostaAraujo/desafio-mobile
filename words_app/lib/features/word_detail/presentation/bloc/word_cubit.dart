@@ -4,21 +4,29 @@ import 'package:get_it/get_it.dart';
 import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 import 'package:words_app/features/word_detail/domain/usecases/save_word_history.dart';
+import 'package:words_app/features/word_detail/domain/usecases/set_word_favorite.dart';
 import 'package:words_app/features/word_detail/presentation/bloc/word_cubit_state.dart';
 
+import '../../domain/entities/word_entity.dart';
+
 class WordCubit extends Cubit<WordCubitState> {
-  WordCubit({required this.loadWord, required this.saveWordHistory})
-      : super(const WordCubitState(
+  WordCubit({
+    required this.loadWord,
+    required this.saveWordHistory,
+    required this.setWordFavorite,
+  }) : super(const WordCubitState(
           status: WordStateStatus.loading,
         ));
 
   LoadWord loadWord;
   SaveWordHistory saveWordHistory;
+  SetWordFavorite setWordFavorite;
+  late WordEntity wordEntity;
 
   void onInit(String word) async {
     try {
-      final wordEntity = await loadWord.load(word);
-      saveWord(wordEntity.word);
+      wordEntity = await loadWord.load(word);
+      saveWord(wordEntity);
       emit(state.copyWith(
         status: WordStateStatus.loaded,
         word: wordEntity,
@@ -33,9 +41,30 @@ class WordCubit extends Cubit<WordCubitState> {
     }
   }
 
-  Future<void> saveWord(String word) async {
+  Future<void> saveWord(WordEntity word) async {
     try {
       await saveWordHistory.save(word);
+    } on DomainError catch (error) {
+      emit(state.copyWith(
+        status: WordStateStatus.error,
+        error: error.description,
+      ));
+    }
+  }
+
+  Future<void> setFavorite(bool isFavorite) async {
+    try {
+      emit(state.copyWith(
+        status: WordStateStatus.loading,
+      ));
+      final word = wordEntity.copyWith(isFavorite: isFavorite);
+      await setWordFavorite(word);
+      await Future.delayed(Duration(seconds: 1));
+      await saveWordHistory.save(word);
+      emit(state.copyWith(
+        word: wordEntity.copyWith(isFavorite: isFavorite),
+status: WordStateStatus.loaded,
+      ));
     } on DomainError catch (error) {
       emit(state.copyWith(
         status: WordStateStatus.error,
@@ -55,6 +84,7 @@ class WordCubitProvider extends BlocProvider<WordCubit> {
           create: (_) => WordCubit(
             loadWord: GetIt.instance<LoadWord>(),
             saveWordHistory: GetIt.instance<SaveWordHistory>(),
+            setWordFavorite: GetIt.instance<SetWordFavorite>(),
           )..onInit(word),
           child: child,
         );
