@@ -1,4 +1,3 @@
-
 import 'package:words_app/features/word_detail/data/usecases/local_load_word_impl.dart';
 import 'package:words_app/features/word_detail/data/usecases/remote_load_word_impl.dart';
 import 'package:words_app/features/word_detail/domain/entities/word_entity.dart';
@@ -15,7 +14,7 @@ class RemoteLoadWordWithLocalFallback implements LoadWord {
 
   @override
   Future<WordEntity> load(String word) async {
-    try{
+    try {
       final localWord = await local.load(word);
       return localWord;
     } catch (error) {

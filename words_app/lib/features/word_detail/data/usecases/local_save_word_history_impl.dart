@@ -27,7 +27,8 @@ class LocalSaveWordHistoryImpl implements SaveWordHistory {
   Future<List<WordEntity>> loadWordList() async {
     try {
       var json = await cacheStorage.fetch('history');
-      List<WordEntity> words =json.map<WordEntity>((e) => WordEntity.fromJson(e)).toList();
+      List<WordEntity> words =
+          json.map<WordEntity>((e) => WordEntity.fromJson(e)).toList();
       return words;
     } catch (error) {
       return [];

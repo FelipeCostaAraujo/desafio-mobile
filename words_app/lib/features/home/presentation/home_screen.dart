@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
             length: 3,
             child: Column(
               children: [
-                 TabBar(
+                TabBar(
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.grey,
                   labelStyle: const TextStyle(

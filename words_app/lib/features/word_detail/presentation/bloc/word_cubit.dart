@@ -54,17 +54,11 @@ class WordCubit extends Cubit<WordCubitState> {
 
   Future<void> setFavorite(bool isFavorite) async {
     try {
-      emit(state.copyWith(
-        status: WordStateStatus.loading,
-      ));
       final word = wordEntity.copyWith(isFavorite: isFavorite);
+      emit(state.copyWith(word: word));
       await setWordFavorite(word);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       await saveWordHistory.save(word);
-      emit(state.copyWith(
-        word: wordEntity.copyWith(isFavorite: isFavorite),
-status: WordStateStatus.loaded,
-      ));
     } on DomainError catch (error) {
       emit(state.copyWith(
         status: WordStateStatus.error,

@@ -7,18 +7,17 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: _counter(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Container();
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      )
-    );
+        body: FutureBuilder(
+      future: _counter(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Container();
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    ));
   }
 
   _counter(context) async {

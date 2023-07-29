@@ -14,7 +14,8 @@ class RemoteLoadWordImpl implements LoadWord {
   @override
   Future<WordEntity> load(String word) async {
     try {
-      var httpResponse = await httpClient.request(url: "$url/$word", method: 'get');
+      var httpResponse =
+          await httpClient.request(url: "$url/$word", method: 'get');
       return RemoteWordModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (e) {
       switch (e) {

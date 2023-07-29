@@ -5,7 +5,6 @@ class WordViewModel {
   final String pronunciation;
   bool isFavorite;
 
-
   WordViewModel({
     required this.word,
     required this.definition,

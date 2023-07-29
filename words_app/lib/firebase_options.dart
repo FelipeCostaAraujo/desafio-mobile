@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1063293005136',
     projectId: 'words-5ad85',
     storageBucket: 'words-5ad85.appspot.com',
-    iosClientId: '1063293005136-26eop45lvdb07hqosln0q7peea7k7db4.apps.googleusercontent.com',
+    iosClientId:
+        '1063293005136-26eop45lvdb07hqosln0q7peea7k7db4.apps.googleusercontent.com',
     iosBundleId: 'com.example.wordsApp',
   );
 }
