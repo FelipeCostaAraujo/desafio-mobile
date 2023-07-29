@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:words_app/features/favorites/presentation/bloc/favorites_cubit.dart';
 import 'package:words_app/features/favorites/presentation/containers/favorites_container.dart';
+import 'package:words_app/features/history/presentation/bloc/history_cubit.dart';
+import 'package:words_app/features/history/presentation/containers/history_container.dart';
 import 'package:words_app/features/words/presentation/bloc/words_cubit.dart';
 
 import '../../../core/resources/i18n/resources.dart';
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: TabBarView(
                     children: [
                       WordsCubitProvider(child: WordsContainer()),
-                      fakerPage("Faker 2"),
+                      HistoryCubitProvider(child: HistoryContainer()),
                       FavoritesCubitProvider(child: FavoritesContainer()),
                     ],
                   ),
@@ -51,13 +53,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-Widget fakerPage(String title) {
-  return Scaffold(
-    appBar: AppBar(),
-    body: Center(
-      child: Text(title),
-    ),
-  );
 }

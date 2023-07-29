@@ -6,6 +6,8 @@ import 'package:words_app/core/http/http.dart';
 import 'package:words_app/core/network/end_points.dart';
 import 'package:words_app/features/favorites/data/usecases/local_load_favorites.dart';
 import 'package:words_app/features/favorites/domain/usecases/load_favorites.dart';
+import 'package:words_app/features/history/data/usecases/local_load_history.dart';
+import 'package:words_app/features/history/domain/usecases/load_history.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_load_word_impl.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_set_word_favorite.dart';
 import 'package:words_app/features/word_detail/data/usecases/remote_load_word_impl.dart';
@@ -24,6 +26,19 @@ final getIt = GetIt.instance;
 
 Future<void> init() async {
   //Use cases
+  getIt.registerLazySingleton<LoadHistory>(
+      () => LocalLoadHistory(cacheStorage: getIt()));
+
+  getIt.registerLazySingleton<LoadWords>(() => LoadWordsImpl());
+
+  getIt.registerLazySingleton<SaveWordHistory>(
+      () => LocalSaveWordHistoryImpl(cacheStorage: getIt()));
+  getIt.registerLazySingleton<LoadFavorites>(
+      () => LocalLoadFavorites(cacheStorage: getIt()));
+  getIt.registerLazySingleton<SetWordFavorite>(
+      () => LocalSetWordFavorite(cacheStorage: getIt()));
+
+  //Compositors
   getIt.registerLazySingleton<LoadWord>(
     () => RemoteLoadWordWithLocalFallback(
       remote: RemoteLoadWordImpl(
@@ -35,14 +50,6 @@ Future<void> init() async {
       ),
     ),
   );
-  getIt.registerLazySingleton<LoadWords>(() => LoadWordsImpl());
-
-  getIt.registerLazySingleton<SaveWordHistory>(
-      () => LocalSaveWordHistoryImpl(cacheStorage: getIt()));
-  getIt.registerLazySingleton<LoadFavorites>(
-      () => LocalLoadFavorites(cacheStorage: getIt()));
-  getIt.registerLazySingleton<SetWordFavorite>(
-      () => LocalSetWordFavorite(cacheStorage: getIt()));
 
   //Data sources
   getIt.registerFactory<HttpClient>(() => HttpAdapter(Client()));

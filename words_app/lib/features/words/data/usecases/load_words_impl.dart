@@ -10,7 +10,7 @@ class LoadWordsImpl implements LoadWords {
     try {
       var response =
           await rootBundle.loadString('assets/json/words_dictionary.json');
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       var wordsJson = jsonDecode(response);
       return wordsJson.keys.toList();
     } catch (e) {
