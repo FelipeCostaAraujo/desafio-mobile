@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
+import 'package:words_app/router_generator.dart';
 import '../../../../core/resources/i18n/resources.dart';
 import './widgets/widgets.dart';
 
@@ -40,7 +41,11 @@ class WordsScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       WordContainer.routeName,
-                      arguments: words[index],
+                      arguments: WordArguments(
+                        index: index,
+                        word: words[index],
+                        words: words,
+                      ),
                     );
                   }),
             ),

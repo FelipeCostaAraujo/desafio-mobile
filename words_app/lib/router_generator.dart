@@ -18,10 +18,10 @@ class RouteGenerator {
           builder: (_) => const HomeScreen(),
         );
       case WordContainer.routeName:
-        if (args is String) {
+        if (args is WordArguments) {
           return MaterialPageRoute(
             builder: (_) => WordCubitProvider(
-              word: args,
+              arguments: args,
               child: WordContainer(),
             ),
           );
@@ -41,4 +41,12 @@ class RouteGenerator {
       );
     });
   }
+}
+
+class WordArguments {
+  final int index;
+  final String word;
+  final List<String> words;
+
+  WordArguments({required this.index, required this.word, required this.words});
 }

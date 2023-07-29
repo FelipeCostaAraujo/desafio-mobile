@@ -6,6 +6,7 @@ import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 import 'package:words_app/features/word_detail/domain/usecases/save_word_history.dart';
 import 'package:words_app/features/word_detail/domain/usecases/set_word_favorite.dart';
 import 'package:words_app/features/word_detail/presentation/bloc/word_cubit_state.dart';
+import 'package:words_app/router_generator.dart';
 
 import '../../domain/entities/word_entity.dart';
 
@@ -14,6 +15,8 @@ class WordCubit extends Cubit<WordCubitState> {
     required this.loadWord,
     required this.saveWordHistory,
     required this.setWordFavorite,
+    required this.words,
+    required this.wordPosition,
   }) : super(const WordCubitState(
           status: WordStateStatus.loading,
         ));
@@ -21,6 +24,8 @@ class WordCubit extends Cubit<WordCubitState> {
   LoadWord loadWord;
   SaveWordHistory saveWordHistory;
   SetWordFavorite setWordFavorite;
+  List<String> words;
+  int wordPosition;
   late WordEntity wordEntity;
 
   void onInit(String word) async {
@@ -32,12 +37,7 @@ class WordCubit extends Cubit<WordCubitState> {
         word: wordEntity,
       ));
     } on DomainError catch (error) {
-      emit(
-        state.copyWith(
-          status: WordStateStatus.error,
-          error: error.description,
-        ),
-      );
+      handleError(error);
     }
   }
 
@@ -45,10 +45,7 @@ class WordCubit extends Cubit<WordCubitState> {
     try {
       await saveWordHistory.save(word);
     } on DomainError catch (error) {
-      emit(state.copyWith(
-        status: WordStateStatus.error,
-        error: error.description,
-      ));
+      handleError(error);
     }
   }
 
@@ -60,11 +57,46 @@ class WordCubit extends Cubit<WordCubitState> {
       await Future.delayed(const Duration(seconds: 1));
       await saveWordHistory.save(word);
     } on DomainError catch (error) {
+      handleError(error);
+    }
+  }
+
+  Future<void> previousWord() async {
+    try {
+      emit(state.copyWith(status: WordStateStatus.loading));
+      if (wordPosition > 0) {
+        final word = await loadWord.load(words[wordPosition - 1]);
+        onInit(word.word);
+      }
+    } on DomainError catch (error) {
       emit(state.copyWith(
         status: WordStateStatus.error,
         error: error.description,
       ));
     }
+  }
+
+  Future<void> nextWord() async {
+    try {
+      emit(state.copyWith(status: WordStateStatus.loading));
+      if (wordPosition < words.length - 1) {
+        wordPosition++;
+        final word = await loadWord.load(words[wordPosition]);
+        onInit(word.word);
+      } else {
+        final word = await loadWord.load(words[0]);
+        onInit(word.word);
+      }
+    } on DomainError catch (error) {
+      handleError(error);
+    }
+  }
+
+  void handleError(DomainError error) {
+    emit(state.copyWith(
+      status: WordStateStatus.error,
+      error: error.description,
+    ));
   }
 }
 
@@ -72,14 +104,16 @@ class WordCubitProvider extends BlocProvider<WordCubit> {
   WordCubitProvider({
     Key? key,
     Widget? child,
-    required String word,
+    required WordArguments arguments,
   }) : super(
           key: key,
           create: (_) => WordCubit(
             loadWord: GetIt.instance<LoadWord>(),
             saveWordHistory: GetIt.instance<SaveWordHistory>(),
             setWordFavorite: GetIt.instance<SetWordFavorite>(),
-          )..onInit(word),
+            words: arguments.words,
+            wordPosition: arguments.index,
+          )..onInit(arguments.word),
           child: child,
         );
 

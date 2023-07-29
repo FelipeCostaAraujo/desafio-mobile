@@ -27,6 +27,7 @@ class WordContainer extends BlocBuilder<WordCubit, WordCubitState> {
                         ? state.word!.examples.first
                         : "",
                     pronunciation: state.word!.pronunciation,
+                    wordPosition: context.read<WordCubit>().wordPosition,
                   ),
                 );
               case WordStateStatus.error:

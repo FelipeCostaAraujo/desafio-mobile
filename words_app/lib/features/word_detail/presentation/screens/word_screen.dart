@@ -125,9 +125,20 @@ class _WordScreenState extends State<WordScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomButton(buttonLabel: "Previous", onPressed: () {}),
-                  const SizedBox(width: 20),
-                  CustomButton(buttonLabel: "Next", onPressed: () {}),
+                  widget.word.wordPosition == 0
+                      ? const SizedBox()
+                      : CustomButton(
+                          buttonLabel: "Previous",
+                          onPressed: () =>
+                              context.read<WordCubit>().previousWord(),
+                        ),
+                  widget.word.wordPosition == 0
+                      ? const SizedBox()
+                      : const SizedBox(width: 20),
+                  CustomButton(
+                    buttonLabel: "Next",
+                    onPressed: () => context.read<WordCubit>().nextWord(),
+                  ),
                 ],
               ),
             ),
