@@ -18,8 +18,6 @@ class HttpAdapter implements HttpClient {
       ..addAll({
         'content-type': 'application/json',
         'accept': 'application/json',
-        'X-RapidAPI-Key': '78deb76a33msh66652d47a203c8bp1129b3jsn156cb0132338',
-        'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
       });
     final jsonBody = body != null ? jsonEncode(body) : null;
     var response = Response('', 500);

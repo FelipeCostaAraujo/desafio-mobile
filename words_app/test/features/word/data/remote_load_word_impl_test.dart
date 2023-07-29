@@ -28,8 +28,10 @@ void main() {
   test('Should call HttpClient with correct values', () async {
     await sut.load(word);
 
-    verify(() => httpClient.request(url: "$url/$word", method: 'get'))
-        .called(1);
+    verify(() => httpClient.request(url: "$url/$word", method: 'get', headers: {
+          'X-RapidAPI-Key': "",
+          'X-RapidAPI-Host': "",
+        })).called(1);
   });
 
   test('Should refresh return on 200', () async {

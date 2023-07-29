@@ -1,5 +1,6 @@
 import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/core/http/http.dart';
+import 'package:words_app/core/settings/settings.dart';
 import 'package:words_app/features/word_detail/domain/entities/word_entity.dart';
 import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 
@@ -15,7 +16,10 @@ class RemoteLoadWordImpl implements LoadWord {
   Future<WordEntity> load(String word) async {
     try {
       var httpResponse =
-          await httpClient.request(url: "$url/$word", method: 'get');
+          await httpClient.request(url: "$url/$word", method: 'get', headers: {
+        'X-RapidAPI-Key': Settings.rapidAPIKey,
+        'X-RapidAPI-Host': Settings.rapidAPIHost,
+      });
       return RemoteWordModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (e) {
       switch (e) {

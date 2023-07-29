@@ -1,17 +1,20 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:words_app/core/settings/settings.dart';
 
 import 'firebase_options.dart';
 import 'router_generator.dart';
 import 'injection_container.dart' as ic;
 
 void main() async {
-  ic.init();
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  Settings.init();
+  ic.init();
   runApp(const MyApp());
 }
 
