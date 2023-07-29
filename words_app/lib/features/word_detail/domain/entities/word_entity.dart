@@ -87,11 +87,21 @@ class WordEntity extends Equatable {
       definition: json["definition"],
       partOfSpeech: json["partOfSpeech"],
       pronunciation: json["pronunciation"],
-      synonyms: json["synonyms"],
-      typeOf: json["typeOf"],
-      hasTypes: json["hasTypes"],
-      derivation: json["derivation"],
-      examples: json["examples"],
+      synonyms: List<String>.from(json["synonyms"]),
+      typeOf: List<String>.from(json["typeOf"]),
+      hasTypes: List<String>.from(json["hasTypes"]),
+      derivation: List<String>.from(json["derivation"]),
+      examples: List<String>.from(json["examples"]),
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WordEntity &&
+          runtimeType == other.runtimeType &&
+          word == other.word;
+
+  @override
+  int get hashCode => word.hashCode;
 }

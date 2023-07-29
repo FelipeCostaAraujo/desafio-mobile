@@ -5,14 +5,15 @@ import 'package:words_app/core/error/domain_errors.dart';
 import 'package:words_app/features/favorites/domain/usecases/load_favorites.dart';
 import 'package:words_app/features/favorites/presentation/bloc/favorites_cubit_state.dart';
 
-class FavoriteCubit extends Cubit<FavoritesCubitState> {
-  FavoriteCubit({required this.loadFavorites})
+class FavoritesCubit extends Cubit<FavoritesCubitState> {
+  FavoritesCubit({required this.loadFavorites})
       : super(const FavoritesCubitState(status: FavoritesStateStatus.loading));
 
   LoadFavorites loadFavorites;
 
   void onInit() async {
     try {
+      emit(state.copyWith(status: FavoritesStateStatus.loading));
       var favoritesList = await loadFavorites.load();
       emit(state.copyWith(
         status: FavoritesStateStatus.loaded,
@@ -27,19 +28,18 @@ class FavoriteCubit extends Cubit<FavoritesCubitState> {
   }
 }
 
-class FavoriteCubitProvider extends BlocProvider<FavoriteCubit> {
-  FavoriteCubitProvider({
+class FavoritesCubitProvider extends BlocProvider<FavoritesCubit> {
+  FavoritesCubitProvider({
     Key? key,
     Widget? child,
-    required String word,
   }) : super(
           key: key,
-          create: (_) => FavoriteCubit(
+          create: (_) => FavoritesCubit(
             loadFavorites: GetIt.instance<LoadFavorites>(),
           )..onInit(),
           child: child,
         );
 
-  static FavoriteCubit of(BuildContext context) =>
-      BlocProvider.of<FavoriteCubit>(context);
+  static FavoritesCubit of(BuildContext context) =>
+      BlocProvider.of<FavoritesCubit>(context);
 }

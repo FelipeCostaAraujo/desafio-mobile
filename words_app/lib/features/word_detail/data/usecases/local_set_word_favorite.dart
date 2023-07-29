@@ -17,9 +17,13 @@ class LocalSetWordFavorite implements SetWordFavorite {
         var encodableWords = words.map((e) => e.toJSon()).toList();
         cacheStorage.save(key: "favorites", value: encodableWords);
       } else {
-        words.remove(word);
-        var encodableWords = words.map((e) => e.toJSon()).toList();
-        cacheStorage.save(key: "favorites", value: encodableWords);
+        var isRemoved = words.remove(word);
+        if (isRemoved) {
+          var encodableWords = words.map((e) => e.toJSon()).toList();
+          cacheStorage.save(key: "favorites", value: encodableWords);
+        } else {
+          throw DomainError.unexpected;
+        }
       }
     } catch (e) {
       throw DomainError.unexpected;
@@ -29,9 +33,11 @@ class LocalSetWordFavorite implements SetWordFavorite {
   Future<List<WordEntity>> loadWordList() async {
     try {
       var json = await cacheStorage.fetch('favorites');
+
       List<WordEntity> words =
           json.map<WordEntity>((e) => WordEntity.fromJson(e)).toList();
-      return words;
+      Set<WordEntity> setList = Set<WordEntity>.from(words);
+      return List<WordEntity>.from(setList);
     } catch (error) {
       return [];
     }

@@ -11,10 +11,15 @@ class LocalLoadFavorites implements LoadFavorites {
   @override
   Future<List<WordEntity>> load() async {
     try {
+      await Future.delayed(const Duration(seconds: 1));
       var json = await cacheStorage.fetch('favorites');
+      if (json == null) {
+        return [];
+      }
       List<WordEntity> words =
           json.map<WordEntity>((e) => WordEntity.fromJson(e)).toList();
-      return words;
+      Set<WordEntity> setList = Set<WordEntity>.from(words);
+      return List<WordEntity>.from(setList);
     } catch (error) {
       throw DomainError.unexpected;
     }

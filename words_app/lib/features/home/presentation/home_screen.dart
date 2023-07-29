@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:words_app/features/favorites/presentation/bloc/favorites_cubit.dart';
+import 'package:words_app/features/favorites/presentation/containers/favorites_container.dart';
 import 'package:words_app/features/words/presentation/bloc/words_cubit.dart';
 
 import '../../../core/resources/i18n/resources.dart';
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       WordsCubitProvider(child: WordsContainer()),
                       fakerPage("Faker 2"),
-                      fakerPage("Faker 3"),
+                      FavoritesCubitProvider(child: FavoritesContainer()),
                     ],
                   ),
                 ),
