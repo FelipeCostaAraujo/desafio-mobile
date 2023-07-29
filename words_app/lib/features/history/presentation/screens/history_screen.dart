@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:words_app/features/history/presentation/bloc/history_cubit.dart';
+import 'package:words_app/router_generator.dart';
 import '../../../word_detail/presentation/containers/word_container.dart';
 import 'widgets/widgets.dart';
 import 'history_viewmodel.dart';
@@ -22,7 +23,11 @@ class HistoryScreen extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(
                         WordContainer.routeName,
-                        arguments: word,
+                        arguments: WordArguments(
+                          index: viewModel.historyWords.indexOf(word),
+                          word: word,
+                          words: viewModel.historyWords,
+                        ),
                       )
                           .then((result) {
                         context.read<HistoryCubit>().onInit();

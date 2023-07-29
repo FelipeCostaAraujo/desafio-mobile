@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:words_app/features/favorites/presentation/bloc/favorites_cubit.dart';
 import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
+import 'package:words_app/router_generator.dart';
 import './favorites_viewmodel.dart';
 import './widgets/widgets.dart';
 
@@ -24,10 +25,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       title: word,
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed(
-                          WordContainer.routeName,
-                          arguments: word,
-                        )
+                            .pushNamed(WordContainer.routeName,
+                                arguments: WordArguments(
+                                  index: widget.viewModel.words.indexOf(word),
+                                  word: word,
+                                  words: widget.viewModel.words,
+                                ))
                             .then((result) {
                           context.read<FavoritesCubit>().onInit();
                         });
