@@ -7,6 +7,7 @@ Usando a API [Words API](https://www.wordsapi.com/) para buscar palavras e seus 
 Com boas práticas de programação e um código limpo e bem estruturado.
 Testes unitários para garantir a qualidade do código.
 
+
 ## Tecnologias Utilizadas
 
 - Linguagem: Dart
@@ -55,6 +56,15 @@ Testes unitários para garantir a qualidade do código.
    ```bash
    flutter run
    ```
+
+7. Para fazer o login no aplicativo, use seu email e senha. Caso não tenha uma conta, e criado uma conta automaticamente com o email e senha informados.    
+
+8. Para executar os testes unitários:
+
+   ```bash
+   flutter test
+   ```
+     
 
 ## .gitignore
 
