@@ -68,6 +68,10 @@ class WordCubit extends Cubit<WordCubitState> {
         wordPosition--;
         final word = await loadWord.load(words[wordPosition]);
         onInit(word.word);
+      } else {
+        final word = await loadWord.load(words[words.length - 1]);
+        wordPosition = words.length - 1;
+        onInit(word.word);
       }
     } on DomainError catch (error) {
       emit(state.copyWith(

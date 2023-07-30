@@ -120,30 +120,31 @@ class _WordScreenState extends State<WordScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  widget.word.wordPosition == 0
-                      ? const SizedBox()
-                      : CustomButton(
-                          buttonLabel: "Previous",
-                          onPressed: () =>
-                              context.read<WordCubit>().previousWord(),
-                        ),
-                  widget.word.wordPosition == 0
-                      ? const SizedBox()
-                      : const SizedBox(width: 20),
-                  CustomButton(
-                    buttonLabel: "Next",
-                    onPressed: () => context.read<WordCubit>().nextWord(),
-                  ),
-                ],
-              ),
-            ),
+            context.read<WordCubit>().words.length == 1
+                ? const SizedBox()
+                : wordButtons(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget wordButtons() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomButton(
+            buttonLabel: "Previous",
+            onPressed: () => context.read<WordCubit>().previousWord(),
+          ),
+          const SizedBox(width: 20),
+          CustomButton(
+            buttonLabel: "Next",
+            onPressed: () => context.read<WordCubit>().nextWord(),
+          ),
+        ],
       ),
     );
   }
