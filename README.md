@@ -6,7 +6,14 @@ Um projeto incrível para demonstrar minha habilidade em desenvolvimento de apli
 Usando a API [Words API](https://www.wordsapi.com/) para buscar palavras e seus significados.
 Com boas práticas de programação e um código limpo e bem estruturado.
 Testes unitários para garantir a qualidade do código.
+Com cache de dados local para melhorar a experiência do usuário e economizando recursos de processamento.
 
+## Features
+- [x] Login com email e senha.
+- [x] Verificação se ja existe um usuario logado.
+- [x] Lista de palavras.
+- [x] Lista de palavras favoritas.
+- [x] Historico de palavras escolhidas.
 
 ## Tecnologias Utilizadas
 
