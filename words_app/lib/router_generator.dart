@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:words_app/features/splash/splash_screen.dart';
+import 'package:words_app/features/auth/presentation/bloc/auth_cubit.dart';
+import 'package:words_app/features/auth/presentation/containers/auth_container.dart';
+import 'package:words_app/features/auth/presentation/screens/auth_screen.dart';
+import 'package:words_app/features/splash/presentation/bloc/splash_cubit.dart';
+import 'package:words_app/features/splash/presentation/containers/splash_container.dart';
 import 'package:words_app/features/word_detail/presentation/bloc/word_cubit.dart';
 import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
 
@@ -11,11 +15,21 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
+        return MaterialPageRoute(
+          builder: (_) => SplashCubitProvider(
+            child: SplashContainer(),
+          ),
+        );
 
       case HomeScreen.routeName:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
+        );
+      case AuthScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => AuthCubitProvider(
+            child: AuthContainer(),
+          ),
         );
       case WordContainer.routeName:
         if (args is WordArguments) {

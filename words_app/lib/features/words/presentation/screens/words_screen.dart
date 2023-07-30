@@ -37,17 +37,18 @@ class WordsScreen extends StatelessWidget {
               ),
               itemCount: words.length,
               itemBuilder: (context, index) => WordCard(
-                  text: words[index],
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      WordContainer.routeName,
-                      arguments: WordArguments(
-                        index: index,
-                        word: words[index],
-                        words: words,
-                      ),
-                    );
-                  }),
+                text: words[index],
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    WordContainer.routeName,
+                    arguments: WordArguments(
+                      index: index,
+                      word: words[index],
+                      words: words,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],

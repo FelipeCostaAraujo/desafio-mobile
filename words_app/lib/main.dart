@@ -17,13 +17,14 @@ void main() async {
   runApp(const MyApp());
 }
 
+const routes = RouteGenerator.generateRoute;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   T? cast<T>(x) => x is T ? x : null;
 
   @override
   Widget build(BuildContext context) {
-    const routes = RouteGenerator.generateRoute;
     final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
     return MaterialApp(
       title: 'Desafio Pilar',

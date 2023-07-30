@@ -4,10 +4,14 @@ import 'package:localstorage/localstorage.dart';
 import 'package:words_app/core/cache/cache.dart';
 import 'package:words_app/core/http/http.dart';
 import 'package:words_app/core/network/end_points.dart';
+import 'package:words_app/features/auth/data/usecases/remote_authentication.dart';
+import 'package:words_app/features/auth/domain/usecases/authentication.dart';
 import 'package:words_app/features/favorites/data/usecases/local_load_favorites.dart';
 import 'package:words_app/features/favorites/domain/usecases/load_favorites.dart';
 import 'package:words_app/features/history/data/usecases/local_load_history.dart';
 import 'package:words_app/features/history/domain/usecases/load_history.dart';
+import 'package:words_app/features/splash/data/usecases/verify_user_logged_in_impl.dart';
+import 'package:words_app/features/splash/domain/usecases/verify_user_loggedin.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_load_word_impl.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_set_word_favorite.dart';
 import 'package:words_app/features/word_detail/data/usecases/remote_load_word_impl.dart';
@@ -37,6 +41,8 @@ Future<void> init() async {
       () => LocalLoadFavorites(cacheStorage: getIt()));
   getIt.registerLazySingleton<SetWordFavorite>(
       () => LocalSetWordFavorite(cacheStorage: getIt()));
+  getIt.registerLazySingleton<Authentication>(() => RemoteAuthentication());
+  getIt.registerFactory<VerifyUserLoggedIn>(() => VerifyUserLoggedInImpl());
 
   //Compositors
   getIt.registerLazySingleton<LoadWord>(
