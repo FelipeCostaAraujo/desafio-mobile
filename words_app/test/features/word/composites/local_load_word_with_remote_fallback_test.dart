@@ -2,7 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 import 'package:words_app/core/error/domain_errors.dart';
-import 'package:words_app/features/word_detail/data/composites/remote_load_word_with_local_fallback.dart';
+import 'package:words_app/features/word_detail/data/composites/local_load_word_with_remote_fallback.dart';
 import 'package:words_app/features/word_detail/domain/entities/word_entity.dart';
 
 import '../domain/entity_factory.dart';
@@ -10,7 +10,7 @@ import '../mocks/local_load_word_spy.dart';
 import '../mocks/remote_load_word_spy.dart';
 
 void main() {
-  late RemoteLoadWordWithLocalFallback sut;
+  late LocalLoadWordWithRemoteFallback sut;
   late RemoteLoadWordSpy remote;
   late LocalLoadWordSpy local;
   late WordEntity remoteWord;
@@ -25,7 +25,7 @@ void main() {
     remoteWord = EntityFactory.makeWord();
     remote = RemoteLoadWordSpy();
     remote.mockLoad(remoteWord);
-    sut = RemoteLoadWordWithLocalFallback(remote: remote, local: local);
+    sut = LocalLoadWordWithRemoteFallback(remote: remote, local: local);
   });
 
   setUpAll(() {

@@ -11,7 +11,7 @@ import 'package:words_app/features/history/domain/usecases/load_history.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_load_word_impl.dart';
 import 'package:words_app/features/word_detail/data/usecases/local_set_word_favorite.dart';
 import 'package:words_app/features/word_detail/data/usecases/remote_load_word_impl.dart';
-import 'package:words_app/features/word_detail/data/composites/remote_load_word_with_local_fallback.dart';
+import 'package:words_app/features/word_detail/data/composites/local_load_word_with_remote_fallback.dart';
 import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 import 'package:words_app/features/word_detail/domain/usecases/set_word_favorite.dart';
 import 'package:words_app/features/words/data/usecases/load_words_impl.dart';
@@ -40,7 +40,7 @@ Future<void> init() async {
 
   //Compositors
   getIt.registerLazySingleton<LoadWord>(
-    () => RemoteLoadWordWithLocalFallback(
+    () => LocalLoadWordWithRemoteFallback(
       remote: RemoteLoadWordImpl(
         httpClient: getIt(),
         url: EndPoints.words,

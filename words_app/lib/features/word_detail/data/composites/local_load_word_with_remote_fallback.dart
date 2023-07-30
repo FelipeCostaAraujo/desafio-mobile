@@ -3,11 +3,11 @@ import 'package:words_app/features/word_detail/data/usecases/remote_load_word_im
 import 'package:words_app/features/word_detail/domain/entities/word_entity.dart';
 import 'package:words_app/features/word_detail/domain/usecases/load_word.dart';
 
-class RemoteLoadWordWithLocalFallback implements LoadWord {
+class LocalLoadWordWithRemoteFallback implements LoadWord {
   final RemoteLoadWordImpl remote;
   final LocalLoadWordImpl local;
 
-  RemoteLoadWordWithLocalFallback({
+  LocalLoadWordWithRemoteFallback({
     required this.remote,
     required this.local,
   });
