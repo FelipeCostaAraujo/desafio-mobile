@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:words_app/features/favorites/presentation/bloc/favorites_cubit.dart';
 import 'package:words_app/features/word_detail/presentation/containers/word_container.dart';
 import 'package:words_app/router_generator.dart';
+import '../../../../core/resources/i18n/resources.dart';
 import './favorites_viewmodel.dart';
 import './widgets/widgets.dart';
 
@@ -38,9 +39,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ))
                 .toList()
             : [
-                const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(child: Text('No favorites yet')),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Center(
+                    child: Text(R.strings.msgNoFavoritesYet),
+                  ),
                 )
               ],
       ),

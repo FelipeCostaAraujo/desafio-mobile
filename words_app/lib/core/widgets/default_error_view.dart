@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../resources/i18n/resources.dart';
+
 class DefaultErrorView extends StatelessWidget {
   final String message;
   final String? buttonLabel;
@@ -32,7 +34,7 @@ class DefaultErrorView extends StatelessWidget {
               ),
             ),
             onPressed: onTryAgain,
-            child: Text(buttonLabel ?? "Tente novamente"),
+            child: Text(buttonLabel ?? R.strings.tryAgain),
           ),
           const SizedBox(height: 100)
         ],

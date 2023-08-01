@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:words_app/features/history/presentation/bloc/history_cubit.dart';
 import 'package:words_app/router_generator.dart';
+import '../../../../core/resources/i18n/resources.dart';
 import '../../../word_detail/presentation/containers/word_container.dart';
 import 'widgets/widgets.dart';
 import 'history_viewmodel.dart';
@@ -37,9 +38,9 @@ class HistoryScreen extends StatelessWidget {
                 )
                 .toList()
             : [
-                const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(child: Text('No history yet')),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Center(child: Text(R.strings.msgNoHistoryYet)),
                 ),
               ],
       ),

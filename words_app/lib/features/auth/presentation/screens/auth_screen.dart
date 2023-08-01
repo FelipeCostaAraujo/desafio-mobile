@@ -32,27 +32,27 @@ class _AuthScreenState extends State<AuthScreen> with KeyboardManager {
       ),
       body: GestureDetector(
         onTap: () => hideKeyboard(context),
-        child: SingleChildScrollView(
-          child: BlocConsumer<AuthCubit, AuthCubitState>(
-            listener: (context, state) {
-              if (state.status == AuthCubitStateStatus.error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.error ?? "Erro desconhecido"),
-                  ),
-                );
-              }
-              if (state.status == AuthCubitStateStatus.authenticated) {
-                Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-              }
-            },
-            builder: (context, state) {
-              if (state.status == AuthCubitStateStatus.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Container(
+        child: BlocConsumer<AuthCubit, AuthCubitState>(
+          listener: (context, state) {
+            if (state.status == AuthCubitStateStatus.error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error ?? "Erro desconhecido"),
+                ),
+              );
+            }
+            if (state.status == AuthCubitStateStatus.authenticated) {
+              Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            }
+          },
+          builder: (context, state) {
+            if (state.status == AuthCubitStateStatus.loading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return SingleChildScrollView(
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: Form(
@@ -107,9 +107,9 @@ class _AuthScreenState extends State<AuthScreen> with KeyboardManager {
                     ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
